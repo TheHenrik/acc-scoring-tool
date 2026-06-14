@@ -1,35 +1,35 @@
-ID,Name,University,Country,Flag,Predicted Payload
-1,Euroavia Zagreb,University of Zagreb,Croatia,🇭🇷,2
-2,Xtra2 UPV,Universitat Politècnica de València,Spain,🇪🇸,2
-3,RhinoJet,INSA Lyon / Ecole Centrale de Lyon,France,🇫🇷,2
-4,ITU ATA TEAM,Istanbul Technical University,Türkiye,🇹🇷,2
-5,Trencalòs Team,Universitat Politècnica de Catalunya,Spain,🇪🇸,2
-6,Icarus PoliTO,Politecnico di Torino,Italy,🇮🇹,2
-7,Team Ancyra,Middle East Technical University,Türkiye,🇹🇷,2
-8,AeroTéc ATLAS,Universidade de Lisboa,Portugal,🇵🇹,2
-9,AeroUD,University of Udine,Italy,🇮🇹,2
-10,LIFT UP,Università degli studi di Padova,Italy,🇮🇹,2
-11,WUT AeroDesign,Warsaw University of Technology,Poland,🇵🇱,2
-12,Fly-Mi EUROAVIA Milano,Politecnico di Milano,Italy,🇮🇹,2
-13,UBI Aeronautics Team,Universidade da Beira Interior,Portugal,🇵🇹,2
-14,Team NOVA,Politehnica University of Bucharest,Romania,🇷🇴,2
-15,CUHAR,Chulalongkorn University,Thailand,🇹🇭,2
-16,TOPHANE AYGÖK,Tophane Vocational and Technical High School,Türkiye,🇹🇷,2
-17,GAZİTAYYARECİLERİ GAZİ UNİVERSİTY,Türkiye,🇹🇷,2
-18,ATLAS - M.ACH,University of Patras,Greece,🇬🇷,2
-19,AkaModell München,Technical University of Munich,Germany,🇩🇪,2
-20,HERMES TEAM,National Technical University of Athens,Greece,🇬🇷,2
-21,THU AIR,Tsinghua University,China,🇨🇳,2
-22,AirOne,University of Bologna,Italy,🇮🇹,2
-24,University of Glasgow Aeronautics,University of Glasgow,United Kingdom,🇬🇧,2
-25,Sydney UAV Engineering,University of Sydney,Australia,🇦🇺,2
-26,DIANA,Universidad de Castilla-La Mancha	Spain,🇪🇸,2
-28,The Cajun Jet,University of Louisiana at Lafayette,USA,🇺🇸,2
-29,UVigo Aerotech,Universidade de Vigo,Spain,🇪🇸,2
-30,Lambach Aircraft ,Delft University of Technology,Netherlands,🇳🇱,2
-31,VANTUS AeroDesign Team,University of Seville,Spain,🇪🇸,2
-32,BEOAVIA,University of Belgrade,Serbia,🇷🇸,2
-33,Team Albatross,Tampere University,Finland,🇫🇮,2
-34,ASAT Aeronautics,Aristotle University of Thessaloniki,Greece,🇬🇷,2
-36,JetStream,Wroclaw University of Science and Technology,Poland,🇵🇱,2
-37,CTU AeroLab, Czech technical university in Prague,Czech Republic,🇨🇿,2
+ID,Name,University,Country,Flag,Predicted Payload,DSQ
+1,Euroavia Zagreb,University of Zagreb,Croatia,🇭🇷,2,false
+2,Xtra2 UPV,Universitat Politècnica de València,Spain,🇪🇸,2,false
+3,RhinoJet,INSA Lyon / Ecole Centrale de Lyon,France,🇫🇷,2,false
+4,ITU ATA TEAM,Istanbul Technical University,Türkiye,🇹🇷,2,false
+5,Trencalòs Team,Universitat Politècnica de Catalunya,Spain,🇪🇸,2,false
+6,Icarus PoliTO,Politecnico di Torino,Italy,🇮🇹,2,false
+7,Team Ancyra,Middle East Technical University,Türkiye,🇹🇷,2,false
+8,AeroTéc ATLAS,Universidade de Lisboa,Portugal,🇵🇹,2,false
+9,AeroUD,University of Udine,Italy,🇮🇹,2,false
+10,LIFT UP,Università degli studi di Padova,Italy,🇮🇹,2,false
+11,WUT AeroDesign,Warsaw University of Technology,Poland,🇵🇱,2,false
+12,Fly-Mi EUROAVIA Milano,Politecnico di Milano,Italy,🇮🇹,2,false
+13,UBI Aeronautics Team,Universidade da Beira Interior,Portugal,🇵🇹,2,false
+14,Team NOVA,Politehnica University of Bucharest,Romania,🇷🇴,2,false
+15,CUHAR,Chulalongkorn University,Thailand,🇹🇭,2,false
+16,TOPHANE AYGÖK,Tophane Vocational and Technical High School,Türkiye,🇹🇷,2,false
+17,GAZİTAYYARECİLERİ GAZİ UNİVERSİTY,Türkiye,🇹🇷,2,false
+18,ATLAS - M.ACH,University of Patras,Greece,🇬🇷,2,false
+19,AkaModell München,Technical University of Munich,Germany,🇩🇪,2,false
+20,HERMES TEAM,National Technical University of Athens,Greece,🇬🇷,2,false
+21,THU AIR,Tsinghua University,China,🇨🇳,2,false
+22,AirOne,University of Bologna,Italy,🇮🇹,2,false
+24,University of Glasgow Aeronautics,University of Glasgow,United Kingdom,🇬🇧,2,false
+25,Sydney UAV Engineering,University of Sydney,Australia,🇦🇺,2,false
+26,DIANA,Universidad de Castilla-La Mancha	Spain,🇪🇸,2,false
+28,The Cajun Jet,University of Louisiana at Lafayette,USA,🇺🇸,2,false
+29,UVigo Aerotech,Universidade de Vigo,Spain,🇪🇸,2,false
+30,Lambach Aircraft ,Delft University of Technology,Netherlands,🇳🇱,2,false
+31,VANTUS AeroDesign Team,University of Seville,Spain,🇪🇸,2,false
+32,BEOAVIA,University of Belgrade,Serbia,🇷🇸,2,false
+33,Team Albatross,Tampere University,Finland,🇫🇮,2,false
+34,ASAT Aeronautics,Aristotle University of Thessaloniki,Greece,🇬🇷,2,false
+36,JetStream,Wroclaw University of Science and Technology,Poland,🇵🇱,2,false
+37,CTU AeroLab, Czech technical university in Prague,Czech Republic,🇨🇿,2,false
