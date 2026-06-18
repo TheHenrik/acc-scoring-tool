@@ -15,7 +15,7 @@ ID,Name,University,Country,Flag,Predicted Payload,DSQ
 14,Team NOVA,Politehnica University of Bucharest,Romania,🇷🇴,2,false
 15,CUHAR,Chulalongkorn University,Thailand,🇹🇭,2,false
 16,TOPHANE AYGÖK,Tophane Vocational and Technical High School,Türkiye,🇹🇷,2,false
-17,GAZİTAYYARECİLERİ GAZİ UNİVERSİTY,Türkiye,🇹🇷,2,false
+17,GAZİTAYYARECİLERİ,GAZİ UNİVERSİTY,Türkiye,🇹🇷,2,false
 18,ATLAS - M.ACH,University of Patras,Greece,🇬🇷,2,false
 19,AkaModell München,Technical University of Munich,Germany,🇩🇪,2,false
 20,HERMES TEAM,National Technical University of Athens,Greece,🇬🇷,2,false
@@ -23,7 +23,7 @@ ID,Name,University,Country,Flag,Predicted Payload,DSQ
 22,AirOne,University of Bologna,Italy,🇮🇹,2,false
 24,University of Glasgow Aeronautics,University of Glasgow,United Kingdom,🇬🇧,2,false
 25,Sydney UAV Engineering,University of Sydney,Australia,🇦🇺,2,false
-26,DIANA,Universidad de Castilla-La Mancha	Spain,🇪🇸,2,false
+26,DIANA,Universidad de Castilla-La Mancha,Spain,🇪🇸,2,false
 28,The Cajun Jet,University of Louisiana at Lafayette,USA,🇺🇸,2,false
 29,UVigo Aerotech,Universidade de Vigo,Spain,🇪🇸,2,false
 30,Lambach Aircraft ,Delft University of Technology,Netherlands,🇳🇱,2,false
