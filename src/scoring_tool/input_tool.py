@@ -158,7 +158,9 @@ def process_current_data(mo, px, team_id, round_num, current_penalty, voltage_pe
 @app.cell
 def process_geo_data(mo, pl, team_id, round_num, px, geo_data, start_time):
     from scoring_tool.marimo_helper_functions import get_geo_distance
+    import plotly.graph_objects as go
     
+    # --- 1. Plot the Flight Trajectory ---
     fig_trajectory = px.line_map(
         geo_data, 
         lat="Latitude", 
@@ -169,6 +171,27 @@ def process_geo_data(mo, pl, team_id, round_num, px, geo_data, start_time):
         title=f"Flight Trajectory (Team {team_id:02d}, Round {round_num})"
     )
 
+
+    # Force the flight data line to be blue
+    fig_trajectory.update_traces(line=dict(color="blue"))
+
+    # --- 2. Add the Boundary Area ---
+    # We repeat the first coordinate at the end of the list to "close" the polygon
+    boundary_lats = [48.641681, 48.640562, 48.637297, 48.635716, 48.638162, 48.639000, 48.639304, 48.641681]
+    boundary_lons = [8.940956, 8.939266, 8.937078, 8.945940, 8.946379, 8.943135, 8.942119, 8.940956]
+
+    # Overlay the red line
+    fig_trajectory.add_trace(
+        go.Scattermap(
+            lat=boundary_lats,
+            lon=boundary_lons,
+            mode="lines",
+            line=dict(color="red", width=2),
+            name="Allowed Area"
+        )
+    )
+
+    # --- 3. Altitude Plot ---
     fig_height = px.line(
         geo_data, 
         x="Time", 
@@ -176,11 +199,16 @@ def process_geo_data(mo, pl, team_id, round_num, px, geo_data, start_time):
         title="Altitude over Time (GPS vs Barometric)",
         labels={
             "Time": "Time (ms)", 
-            "value": "Altitude (m)",   # Plotly defaults to 'value' when plotting multiple columns
-            "variable": "Sensor Type"  # Renames the legend title
+            "value": "Altitude (m)",   
+            "variable": "Sensor Type"  
         }
     )
 
+    fig_height.add_vline(x=start_time, line_color="blue", line_dash="dash", annotation_text="Start Time")
+    fig_height.add_vline(x=start_time + 60_000, line_color="green", line_dash="dash")
+    fig_height.add_vline(x=start_time + 180_000, line_color="green", line_dash="dash")
+
+    # --- 4. Calculations & UI ---
     distance = get_geo_distance(geo_data, start_time)
 
     geo_ui = mo.vstack([
@@ -189,10 +217,10 @@ def process_geo_data(mo, pl, team_id, round_num, px, geo_data, start_time):
         mo.ui.plotly(fig_height),
         mo.md(f"**Distance Covered in First 2 Minutes:** {distance:.2f} meters")
     ])
-    
+
     geo_ui
     
-    return distance, geo_ui
+    return distance, geo_ui, fig_trajectory, fig_height
 
 
 @app.cell
