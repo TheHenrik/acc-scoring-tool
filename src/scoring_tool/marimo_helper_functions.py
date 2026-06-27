@@ -6,14 +6,8 @@ def get_current_data(team_id, round_num, start_time):
     c_data = pl.read_csv(f"data/rounds/{round_num:02d}_{team_id:02d}_flight-data.csv")
     
     c_data = c_data.filter(
-        pl.col("Time").is_between(start_time + 60_000, start_time + 180_000)
+        pl.col("Time").is_between(start_time, start_time + 180_000)
     )
-
-    span = 3
-
-    # c_data = c_data.with_columns([
-    #     pl.col("Current").ewm_mean(span=span, ignore_nulls=True).alias("Current"),
-    # ])
 
     # calculate the current penalty: min(1, 0.002 * int(max(0, current - 30))))
     c_data = c_data.with_columns(
@@ -36,10 +30,12 @@ def get_current_data(team_id, round_num, start_time):
 
     # Sum all the individual areas to get the total integral
     total_excess_integral = c_data.select(pl.sum("Integral_Step")).item()
-    
+
     # Fallback to 0 if the filtered dataframe happens to be empty
     if total_excess_integral is None: 
         total_excess_integral = 0.0
+
+    total_excess_integral = min(1.0, 0.002 * total_excess_integral)
 
     current_penalty = total_excess_integral
 
