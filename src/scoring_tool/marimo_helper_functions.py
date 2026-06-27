@@ -9,6 +9,12 @@ def get_current_data(team_id, round_num, start_time):
         pl.col("Time").is_between(start_time + 60_000, start_time + 180_000)
     )
 
+    span = 3
+
+    # c_data = c_data.with_columns([
+    #     pl.col("Current").ewm_mean(span=span, ignore_nulls=True).alias("Current"),
+    # ])
+
     # calculate the current penalty: min(1, 0.002 * int(max(0, current - 30))))
     c_data = c_data.with_columns(
         (pl.col("Current") - 30.0).clip(lower_bound=0.0).alias("Excess_Current")
@@ -130,7 +136,7 @@ def get_start_time(data, geo_data):
     return start_time
 
 
-def smooth_gps_trajectory(df: pl.DataFrame, span: int = 10) -> pl.DataFrame:
+def smooth_gps_trajectory(df: pl.DataFrame, span: int = 3) -> pl.DataFrame:
     """
     Glättet die Trajektorie rein in Polars mit einem exponentiell gleitenden Durchschnitt.
     

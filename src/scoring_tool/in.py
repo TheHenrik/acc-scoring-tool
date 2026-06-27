@@ -11,7 +11,7 @@ def import_flight_data(file_path: Path, team_id: int, round: int) -> None:
         has_header=False,
         new_columns=[
             "Datetime",
-            "Time",
+            "LOC",
             "SatConnected",
             "NumSats",
             "Latitude",
@@ -38,6 +38,13 @@ def import_flight_data(file_path: Path, team_id: int, round: int) -> None:
     scores = pl.read_csv(scores_path)
     datetime = logfile.select("Datetime").head(1).item()
     
+    logfile = logfile.with_columns(
+        (
+            pl.col("Datetime").str.to_datetime(format="%Y-%m-%dT%H:%M:%S%.f%z") - 
+            pl.col("Datetime").str.to_datetime(format="%Y-%m-%dT%H:%M:%S%.f%z").first()
+        ).dt.total_milliseconds().alias("Time")
+    )
+
     scores = scores.with_columns(
         pl.when(pl.col("ID") == team_id)
         .then(pl.lit(str(file_path)))
@@ -67,4 +74,4 @@ def import_flight_data(file_path: Path, team_id: int, round: int) -> None:
     logfile.write_csv(f"data/rounds/{round:02d}_{team_id:02d}_flight-data.csv")
 
 if __name__ == "__main__":
-    import_flight_data(Path("temp/0027.txt"), team_id=1, round=1)
+    import_flight_data(Path("temp/log_10.txt"), team_id=11, round=1)
