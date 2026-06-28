@@ -73,5 +73,9 @@ def import_flight_data(file_path: Path, team_id: int, round: int) -> None:
     )
     logfile.write_csv(f"data/rounds/{round:02d}_{team_id:02d}_flight-data.csv")
 
+
+def import_raw_data() -> None:
+    pass # TODO
+
 if __name__ == "__main__":
     import_flight_data(Path("temp/log_10.txt"), team_id=11, round=1)

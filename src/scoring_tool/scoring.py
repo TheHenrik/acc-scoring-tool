@@ -58,11 +58,11 @@ def update_round_score(round_num: int) -> None:
     round_scores.write_csv(f"data/rounds/{round_num:02d}_scores.csv")
 
 
-def update_scores() -> None:
+def update_scores(rounds: list[int] = [1, 2, 3, 4, 5]) -> None:
     """Update the scores for all teams and rounds."""
     scores = pl.read_csv("data/scores.csv")
 
-    for round_num in range(1, 6):
+    for round_num in rounds:
         update_round_score(round_num)
         round_scores = pl.read_csv(f"data/rounds/{round_num:02d}_scores.csv")
 
@@ -132,11 +132,5 @@ def update_penalties() -> None:
 
 
 if __name__ == "__main__":
-    count = 1
-    start = time.perf_counter()
-    for i in range(count):
-        update_scores()
-        update_penalties()
-    end = time.perf_counter()
-    t = (end - start) / count
-    print(f"Average time per iteration: {t} seconds")
+    update_scores()
+    update_penalties()

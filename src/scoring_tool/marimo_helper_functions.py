@@ -1,5 +1,9 @@
 import math
 import polars as pl
+import numpy as np
+from pykalman import KalmanFilter
+
+from enum import Enum
 
 
 def get_current_data(team_id, round_num, start_time):
@@ -132,7 +136,13 @@ def get_start_time(data, geo_data):
     return start_time
 
 
-def smooth_gps_trajectory(df: pl.DataFrame, span: int = 3) -> pl.DataFrame:
+class SmoothingType(Enum):
+    EWM = "ewm"
+    SMA = "sma"
+    KALMAN = "kalman"
+
+
+def smooth_gps_trajectory(df: pl.DataFrame, span: int = 3, t: SmoothingType = SmoothingType.EWM) -> pl.DataFrame:
     """
     Glättet die Trajektorie rein in Polars mit einem exponentiell gleitenden Durchschnitt.
     
@@ -146,13 +156,66 @@ def smooth_gps_trajectory(df: pl.DataFrame, span: int = 3) -> pl.DataFrame:
     
     # Daten müssen chronologisch sortiert sein für EWM
     valid_df = valid_df.sort("Time")
-    
-    # EWM anwenden (überschreibt die originalen Spalten)
-    smoothed_df = valid_df.with_columns([
-        pl.col("Latitude").ewm_mean(span=span, ignore_nulls=True).alias("Latitude"),
-        pl.col("Longitude").ewm_mean(span=span, ignore_nulls=True).alias("Longitude")
-    ])
-    
+
+    if t==SmoothingType.EWM:
+        # EWM anwenden (überschreibt die originalen Spalten)
+        smoothed_df = valid_df.with_columns([
+            pl.col("Latitude").ewm_mean(span=10, ignore_nulls=True).alias("Latitude"),
+            pl.col("Longitude").ewm_mean(span=10, ignore_nulls=True).alias("Longitude")
+        ])
+
+    elif t==SmoothingType.KALMAN:
+        measurements = valid_df.select(["latitude", "longitude"]).to_numpy()
+        times_ms = valid_df["time"].to_numpy()
+        n_samples = len(times_ms)
+
+        # 2. Calculate time differences (dt) in seconds
+        # np.diff calculates the difference between consecutive timestamps
+        dt = np.diff(times_ms) / 1000.0 
+
+        # np.diff returns an array that is 1 element shorter than our data.
+        # We append the last dt value again to make lengths match (the final matrix 
+        # doesn't affect the forward pass, but pykalman requires the shapes to align).
+        dt = np.append(dt, dt[-1])
+
+        # 3. Build Time-Varying Transition Matrices
+        # Create an array of shape (n_samples, 4, 4)
+        transition_matrices = np.zeros((n_samples, 4, 4))
+
+        # Fill in a unique transition matrix for every single row based on its specific dt
+        for i in range(n_samples):
+            transition_matrices[i] = [
+                [1, 0, dt[i], 0],      # lat = lat + (v_lat * dt)
+                [0, 1, 0,     dt[i]],  # lon = lon + (v_lon * dt)
+                [0, 0, 1,     0],      # v_lat = v_lat
+                [0, 0, 0,     1]       # v_lon = v_lon
+            ]
+
+        # 4. Define State Vector and Observation Matrix (Unchanged)
+        initial_state = [measurements[0, 0], measurements[0, 1], 0, 0]
+
+        observation_matrix = [
+            [1, 0, 0, 0],
+            [0, 1, 0, 0]
+        ]
+
+        # 5. Initialize the Filter
+        # Notice we are passing the 3D array into transition_matrices
+        kf = KalmanFilter(
+            transition_matrices=transition_matrices,
+            observation_matrices=observation_matrix,
+            initial_state_mean=initial_state
+        )
+
+        # 6. Apply the Smoothing Algorithm
+        smoothed_state_means, _ = kf.smooth(measurements)
+
+        # 7. Overwrite the original columns in your Polars DataFrame
+        smoothed_df = valid_df.with_columns([
+            pl.Series("latitude", smoothed_state_means[:, 0]),
+            pl.Series("longitude", smoothed_state_means[:, 1])
+        ])
+
     return smoothed_df
 
 
