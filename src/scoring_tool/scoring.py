@@ -58,7 +58,7 @@ def update_round_score(round_num: int) -> None:
     round_scores.write_csv(f"data/rounds/{round_num:02d}_scores.csv")
 
 
-def update_scores(rounds: list[int] = [1, 2, 3, 4, 5]) -> None:
+def update_scores(rounds: list[int]) -> None:
     """Update the scores for all teams and rounds."""
     scores = pl.read_csv("data/scores.csv")
 
@@ -132,5 +132,5 @@ def update_penalties() -> None:
 
 
 if __name__ == "__main__":
-    update_scores()
+    update_scores(rounds=[1])
     update_penalties()

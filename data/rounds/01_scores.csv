@@ -1,5 +1,5 @@
 ID,Payload,Distance,Current,Loading,Unloading,Penalty,Takeoff,DSQ,Preliminary Score,Score,Logfile,Datetime
-1,0,937.75,0.0,0.0,0.0,0.0,60,false,0.0,40.00000000000001,temp/0027.txt,2026-06-11T17:36:21+00:00
+1,0,0.0,0.0,0.0,0.0,0.0,60,false,0.0,0.0,,
 2,0,0.0,0.0,0.0,0.0,0.0,60,false,0.0,0.0,,
 3,0,0.0,0.0,0.0,0.0,0.0,60,false,0.0,0.0,,
 4,0,0.0,0.0,0.0,0.0,0.0,60,false,0.0,0.0,,
