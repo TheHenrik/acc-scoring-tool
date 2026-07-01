@@ -13,9 +13,17 @@ def get_current_data(team_id, round_num, start_time):
         pl.col("Time").is_between(start_time, start_time + 180_000)
     )
 
+    c_data = c_data.group_by(
+        (((pl.col("Time") - start_time) // 500) * 500 + start_time).alias("Time_bin")
+    ).agg([
+        pl.col("Time").mean(),
+        pl.col("Current").mean(),
+        pl.col("Voltage").mean()
+    ]).sort("Time_bin").drop("Time_bin")
+
     # calculate the current penalty: min(1, 0.002 * int(max(0, current - 30))))
     c_data = c_data.with_columns(
-        (pl.col("Current") - 30.0).clip(lower_bound=0.0).alias("Excess_Current")
+        (pl.col("Current") - 30.2).clip(lower_bound=0.0).alias("Excess_Current")
     )
 
     # Shift columns to get the previous row's values for Trapezoidal math
