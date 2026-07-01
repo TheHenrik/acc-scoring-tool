@@ -132,5 +132,6 @@ def update_penalties() -> None:
 
 
 if __name__ == "__main__":
-    update_scores(rounds=[1])
-    update_penalties()
+    #update_scores(rounds=[1])
+    #update_penalties()
+    update_round_score(round_num=1)
