@@ -78,4 +78,4 @@ def import_raw_data() -> None:
     pass # TODO
 
 if __name__ == "__main__":
-    import_flight_data(Path("temp/log_10.txt"), team_id=11, round=1)
+    import_flight_data(Path("temp/062.txt"), team_id=17, round=2)
